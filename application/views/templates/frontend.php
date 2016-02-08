@@ -98,12 +98,12 @@ defined('SYSPATH') or die('No direct script access.'); ?>
             </div>
             <div class="menu">
                 <ul>
-                    <li><?= HTML::anchor('/', 'УЧАСТНИКИ', array('class' => 'menu-auto-filter')); ?></li>
-                    <li><?= HTML::anchor('programs', 'ПРОГРАММЫ', array('class' => 'menu-auto-filter')); ?></li>
-                    <li><?= HTML::anchor('/', 'МЕРОПРИЯТИЯ'); ?></li>
-                    <li><?= HTML::anchor('/', 'СЕРВИСЫ'); ?></li>
-                    <li><?= HTML::anchor('/', 'СОБЫТИЯ'); ?></li>
-                    <li><?= HTML::anchor('/', 'ФОРУМ', array('class' => 'last')); ?></li>
+                    <li><?= HTML::anchor('shops', 'УЧАСТНИКИ', array('class' => 'menu-auto-filter')); ?></li>
+                    <li><?= HTML::anchor('#', 'ПРОГРАММЫ', array('class' => 'menu-auto-filter')); ?></li>
+                    <li><?= HTML::anchor('#', 'МЕРОПРИЯТИЯ'); ?></li>
+                    <li><?= HTML::anchor('#', 'СЕРВИСЫ'); ?></li>
+                    <li><?= HTML::anchor('#', 'СОБЫТИЯ'); ?></li>
+                    <li><?= HTML::anchor('#', 'ФОРУМ', array('class' => 'last')); ?></li>
                 </ul>
             </div>
             <div class="region_expand">
