@@ -1,0 +1,314 @@
+body
+{
+    padding-top: 60px;
+}
+
+.ui-multiselect-checkboxes label
+{
+    width: auto;
+    text-align: left;
+}
+.ui-multiselect-checkboxes label input {
+    float: left;
+    position: relative;
+    margin-right: 2px;
+    top: 0;
+}
+.sidebar-nav
+{
+    padding: 9px 0;
+}
+.nav-header a
+{
+    font-weight: bold;
+}
+.feedback_table td
+{
+    padding: 10px;
+}
+
+
+strong, b
+{
+    font-weight: bold;
+}
+a
+{
+    color: #628ab4;
+
+}
+a:hover
+{
+    text-decoration: none;
+}
+.mceEditor td.mceIframeContainer iframe {
+    min-height: 350px !important;
+}
+
+#text_tbl {
+    width: 100% !important;
+
+}
+
+input[type="submit"].delete
+{
+     background: url("../../assets/img/admin/delete.png");
+    color: #FFF;
+}
+.breadcrumbs
+{
+    overflow: hidden;
+    margin: 10px 0;
+}
+.breadcrumbs a
+{
+    background: #2b91fc;
+    padding: 10px;
+    display: block;
+    float: left;
+    text-decoration: none;
+    color: #FFF;
+    margin: 0 5px;
+    border-radius: 5px;
+    font-size: 12px;
+}
+.breadcrumbs a.active
+{
+    background: 0;
+    color: #7c7c7c;
+    font-weight: bold;
+}
+#menu
+{
+    overflow: hidden;
+    background: url("../../assets/img/admin/menu_main.png");
+    border-bottom: 1px solid #c9c9c9;
+}
+#menu ul.settings
+{
+    float: right;
+}
+#menu ul li
+{
+    float: left;
+}
+#menu ul li a
+{
+    background: url("../../assets/img/admin/menu.png");
+    font-size: 16px;
+    display: block;
+    text-decoration: none;
+    padding: 14px 15px 18px;
+    color: #e9e9e9;
+}
+#menu ul li a.site_view
+{
+    background: url("../../assets/img/admin/menu_site.png");
+}
+#menu ul li a.site_view:hover
+{
+    background: url("../../assets/img/admin/menu_site_hover.png");
+}
+#menu ul li a:hover
+{
+    background: url("../../assets/img/admin/menu_hover.png");
+}
+#menu ul li ul
+{
+    display: none;
+    position: absolute;
+    z-index: 999;
+}
+#menu ul li ul li
+{
+    float: none;
+}
+#menu ul li ul li a
+{
+    background: #353535
+}
+#menu ul li ul li a:hover
+{
+    background: #444444;
+}
+#content_container
+{
+    width: 1000px;
+    margin: 0 auto;
+}
+.content_table
+{
+    margin: 10px 0;
+    border: 1px solid #adadad;
+    font-size: 12px;
+    width: 100%;
+}
+.content_table tr.title td
+{
+    background: #757575;
+    color: #FFF;
+    font-weight: bold;
+}
+.content_table td
+{
+    padding: 10px;
+    border-right: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+    background: #f6f6f6;
+}
+.content_table td:last-of-type
+{
+    border-right: 0;
+}
+.content_table.service tr.title td
+{
+    background: #ededed;
+    color: #999999;
+    font-weight: bold;
+}
+.service_types
+{
+    margin-bottom: 20px;
+    float: left;
+}
+.service_types li
+{
+    float: left;
+}
+.service_types a
+{
+    font-size: 12px;
+    font-weight: bold;
+    color: #7c7c7c;
+    padding: 5px;
+}
+.service_types a.active
+{
+    text-decoration: none;
+    background: #7c7c7c;
+    color: #FFF;
+}
+.tips
+{
+    font-size: 12px;
+    width: 650px;
+    float: right;
+}
+.tips ol
+{
+    list-style-type: decimal;
+}
+
+.item_services_list
+{
+    width: 500px;
+    height: 100%;
+    overflow: hidden;
+}
+.item_services_list li
+{
+    width: 190px;
+    float: left;
+    display: block;
+}
+#metro-map-controls
+{
+    display: none;
+}
+#metro-map-main
+{
+    font-family: "Tahoma";
+    position: relative;
+
+    width: 950px;
+    height: 1086px;
+
+}
+.metro-station
+{
+    width: 200px;
+    min-height: 50px;
+    font-size: 11px;
+    display: none;
+    position: absolute;
+}
+.metro-station:hover
+{
+    background: #ebebeb;
+    color: #767676;
+    opacity: 0.7;
+    border: 1px solid #dcdcdc
+}
+
+.metro-station .marker-icon
+{
+    background: url('../../assets/img/metro-marker.png') no-repeat;
+    width: 21px;
+    height: 21px;
+    max-height: 21px;
+    max-width: 21px;
+    margin-top: 5px;
+    position: absolute;
+
+}
+.metro-station .name
+{
+    position: absolute;
+    left: 30px;
+    top: 5px;
+}
+.metro-station .name a
+{
+    color: #319fd5;
+    text-decoration: underline;
+}
+.metro-station .name a:hover
+{
+    text-decoration: none;
+}
+
+.metro-station .align-control
+{
+    display: none;
+    position: absolute;
+    left: 55px;
+}
+.metro-station:hover  .align-control
+{
+    display: block;
+}
+.metro-station .align-control button
+{
+    padding: 3px 6px;
+    font-size: 10px;
+}
+#metro-stations-gui
+{
+    width: 300px;
+    border: 1px solid #CBCBCB;
+
+    position: absolute;
+    z-index: 999;
+    background: #FFF;
+}
+#metro-stations-gui.drag-start
+{
+    opacity: 0.7;
+}
+#metro-stations-gui .form form, #metro-stations-gui .form.well
+{
+    margin: 0;
+}
+
+#metro-stations-gui .list
+{
+    height: 400px;
+    padding: 5px;
+    overflow: scroll;
+}
+#metro-stations-gui .list ul
+{
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+}

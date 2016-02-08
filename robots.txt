@@ -1,0 +1,17 @@
+User-agent: *
+Disallow: /application/
+Disallow: /dumps/
+Disallow: /files/
+Disallow: /js/
+Disallow: /modules/
+Disallow: /system/
+Disallow: /themes/
+Disallow: /*?metro*
+Disallow: /*?district*
+Disallow: /*?selected_city*
+Disallow: /*?print_coupon*
+Disallow: /home*
+Disallow: /*add?*
+
+Host: www.as-avtoservice.ru
+Sitemap: http://www.as-avtoservice.ru/sitemap.xml

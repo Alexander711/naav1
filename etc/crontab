@@ -1,0 +1,12 @@
+# Tue Aug  6 00:12:23 2013
+0,55 * * * *	/usr/local/bin/wget -O - -q -t 1 "http://www.as-avtoservice.ru/parsestat" >> logs/statistics_log
+# logrotate
+00 00 * * *	/bin/sh -c "/usr/local/sbin/logrotate -f -s /var/run/logrotate.state /home/as-avtoser/etc/logrotate.conf"
+# notice_email_sender
+*/02 * * * *	/usr/local/bin/wget --no-cache --spider - -q -t 1 "http://www.as-avtoservice.ru/cron/notice_email_sender?start=email" >/dev/null 2>&1
+# process_payment_status
+*/02 * * * *	wget -q -O /dev/null http://www.as-avtoservice.ru/cron/process_payment_status
+# process_user_payments
+* 24 * * *	wget -q -O /dev/null http://www.as-avtoservice.ru/cron/process_user_payments
+# pasrse_stat
+55 * * * *	/usr/local/bin/wget -O - -q -t 1 "http://www.as-avtoservice.ru/parsestat" >> logs/statistics_log >/dev/null 2>&1
