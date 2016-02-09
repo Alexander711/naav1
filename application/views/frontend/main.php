@@ -109,7 +109,6 @@ defined('SYSPATH') or die('No direct script access.');
 <div class="h_middle_container">
     <div class="left">
         <div class="h_section stocks">
-            <div class="ribbon ribbon-stocks"></div>
             <div class="title">
                 <?= HTML::anchor('stocks', 'Акции автосервисов'); ?>
             </div>
@@ -131,7 +130,6 @@ defined('SYSPATH') or die('No direct script access.');
         </div>
 
         <div class="h_section reviews">
-            <div class="ribbon ribbon-reviews"></div>
             <div class="title">
                 <?= HTML::anchor('reviews', 'Отзывы об автосервисах'); ?>
             </div>
@@ -171,7 +169,6 @@ defined('SYSPATH') or die('No direct script access.');
 
 
             <div class="h_section best-services">
-                <div class="ribbon ribbon-best-services"></div>
                 <div class="title">Лучшие автосервисы</div>
                 <div class="body">
                     <?php
@@ -212,7 +209,6 @@ defined('SYSPATH') or die('No direct script access.');
 
 
             <div class="h_section last_questions">
-                <div class="ribbon ribbon-questions"></div>
                 <div class="title"><?= HTML::anchor('messages', 'Запросы пользователей'); ?></div>
                 <div class="body">
                     <?php foreach ($questions->where('active', '=', 1)->order_by('date', 'DESC')->limit(2)->find_all() as $q): ?>
@@ -241,7 +237,6 @@ defined('SYSPATH') or die('No direct script access.');
     <div class="right_content">
 
         <div class="h_section">
-            <div class="ribbon ribbon-service-news"></div>
             <div class="title"><?= HTML::anchor('news', 'Новости автосервисов'); ?></div>
             <div class="body">
                 <?php foreach ($service_news->where('active', '=', 1)->order_by('date_create', 'DESC')->limit(5)->find_all() as $news): ?>
@@ -263,7 +258,6 @@ defined('SYSPATH') or die('No direct script access.');
 
         <?php if (count($world_news->find_all()) > 0): ?>
             <div class="h_section world-news">
-                <div class="ribbon ribbon-world-news"></div>
                 <div class="title"><?= HTML::anchor('news/world', 'Новости автомира'); ?></div>
                 <div class="body">
                     <?php foreach ($world_news->where('active', '=', 1)->order_by('date', 'DESC')->limit(5)->find_all() as $news): ?>
@@ -286,7 +280,6 @@ defined('SYSPATH') or die('No direct script access.');
 
         <?php if (count($articles->find_all()) > 0): ?>
             <div class="h_section articles">
-                <div class="ribbon ribbon-articles"></div>
                 <div class="title"><?= HTML::anchor('articles', 'Статьи'); ?></div>
                 <div class="body">
                     <?php foreach ($articles->where('active', '=', 1)->order_by('date_create', 'DESC')->limit(5)->find_all() as $article): ?>
