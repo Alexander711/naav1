@@ -139,9 +139,6 @@ defined('SYSPATH') or die('No direct script access.'); ?>
 			<div class="main_wrapper wrapper-sidebar">
 				sidebar
 				<div class="banner">
-					<a target="_blank" href="#">
-						<img src="https://storage.googleapis.com/support-kms-prod/SNP_2922276_en_v1" alt="alt text" title="title banner" />
-					</a>
 				</div>
 			</div>
 		</noindex>
@@ -153,6 +150,17 @@ defined('SYSPATH') or die('No direct script access.'); ?>
     </div>
 </div>
 <div id="footer">
+   <div class="social" style="position: initial;">
+      <ul>
+            <li><?= HTML::image('assets/img/logo_footer.png', array('alt' => 'Логотип сайта')); ?></li>
+            <li><?= HTML::image('assets/img/logo_lada.png', array('alt' => 'Логотип ВАЗ')); ?></li>
+            <li><?= HTML::image('assets/img/logo_kamaz.png', array('alt' => 'Логотип Камаз')); ?></li>
+            <li><?= HTML::image('assets/img/logo_rosgosstrah.png', array('alt' => 'Логотип Росгосстрах')); ?></li>
+            <li><?= HTML::image('assets/img/logo_sberbank.png', array('alt' => 'Логотип Сбербанк')); ?></li>
+            <li><?= HTML::image('assets/img/logo_avtoradio.png', array('alt' => 'Логотип Авторадио')); ?></li>
+            <li><?= HTML::image('assets/img/logo_zarulem.png', array('alt' => 'Логотип журнал За рулем')); ?></li>
+      </ul>
+   </div>
     <!--div class="social">
         <ul>
             <li><?= HTML::anchor('http://vk.com/avtoserviceas', '&nbsp', array('class' => 'vk')) ?></li>
