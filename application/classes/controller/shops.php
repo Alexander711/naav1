@@ -32,18 +32,6 @@ class Controller_Shops extends Controller_Frontend {
             if ($group->parrent_id != 0) {
                 $result[$group->parrent_id]['sub_group'][$group->id]['name'] = $group->name;
             }
-
-            $services = $group->service->where('active', '=', 1)->find_all();
-
-            foreach ($services as $service) {
-                if (isset($result[$group->id])) {
-                    $result[$group->id]['services'][$service->id] = $service->name;
-                }
-                
-                if (isset($result[$group->parrent_id]['sub_group'][$group->id])) {
-                    $result[$group->parrent_id]['sub_group'][$group->id]['services'][$service->id] = $service->name;
-                }
-            }
         }
 
         $this->view = View::factory('frontend/services/shops_all')

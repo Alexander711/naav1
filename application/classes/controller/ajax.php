@@ -777,7 +777,11 @@ class Controller_Ajax extends Controller
                     'district_form' => ''
                 )
             );
-            $city = ORM::factory('city', $this->request->param('id', NULL));
+
+            $city_name = Arr::get($_POST, 'city_name');
+
+            $city = ORM::factory('city')->where('name', '=', $city_name)->find();
+
             if (!$city->loaded())
             {
                 $result['error'] = 'Нет такого города';

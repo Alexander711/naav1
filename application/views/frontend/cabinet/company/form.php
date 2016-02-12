@@ -3,7 +3,7 @@ defined('SYSPATH') or die('No direct script access.');
 $org_type = Arr::get($values, 'org_type', FALSE);
 $selected_works = Arr::get($values, 'work', array());
 $selected_cars = Arr::get($values, 'model', array());
-//echo count($selected_cars);
+
 $phone_inp_style = '';
 $address_inp_style = '';
 $name_inp_style = '';
@@ -19,7 +19,7 @@ if (Arr::get($errors, 'name'))
 {
     $name_inp_style = 'border: 1px solid brown';
 }
-echo FORM::open($url,array('autocomplete' => 'off'));
+echo FORM::open($url);
 $witch_works_models = Arr::get($values, 'witch_w_m', FALSE);
 $discounts = array('0' => 'нет') + $discounts;
 ?>
@@ -33,9 +33,122 @@ $discounts = array('0' => 'нет') + $discounts;
     <div class='field_body'>
         <a href='javascript:void(0)' class='add_group' data-next_group='2'>Добавить категорию</a>
     </div>
-    <div class="li_group_1 field_body">
-        <label for="group_id_1" class="lab"><?= __('f_company_type') ?></label>
-        <?= FORM::select('group_id[]', $groups, Arr::get($values, 'group_id'),array('class' => 'select_group','id' => 'group_id_1','data-number_group' => '1')); ?>
+    <?php ($count_groups == 0) ? $flag_first = 'first' : $flag_first = '' ?>
+    
+    <?php if($type_group == 0) {
+        $params = array('class' => 'select_group '.$flag_first,'id' => 'group_id_1','data-number_group' => '1','autocomplete' => 'off');
+    } else {
+        $params = array('class' => 'select_group '.$flag_first,'id' => 'group_id_1','data-number_group' => '1', 'data-type_group' => $type_group, 'autocomplete' => 'off');
+    } ?>
+
+    <div class="div_group_1 field_body">
+        <label for="group_id_1" id="label_group_1" class="lab"><?= __('f_company_type') ?></label>
+        <?= FORM::select(
+                'group_id_1',
+                $groups,
+                Arr::get($values, 'group_id_1'),
+                $params
+        ); ?>
+        <div class="form_error"><?= Message::show_once_error($errors, 'group_id_1'); ?></div>
+    </div>
+    <div class="div_sub_group_1 field_body <?= (!isset($values['sub_group_id_1'])) ? 'hide_field' : '' ?>">
+        <label class="lab" for="sub_group_id_1">Подкатегория</label>
+        <?= FORM::select(
+                'sub_group_id_1',
+                $options_sub_group_1,
+                Arr::get($values, 'sub_group_id_1'),
+                array('id' => 'sub_group_id_1', 'autocomplete' => 'off')
+        ); ?>
+        
+        <div class="form_error"><?= Message::show_once_error($errors, 'sub_group_id_1'); ?></div>
+    </div>
+    <div class="div_group_2 field_body <?= (!isset($values['group_id_2'])) ? 'hide_field' : '' ?>">
+        <label for="group_id_2" id="label_group_2" class="lab"><?= __('f_company_type') ?></label>
+        <?= FORM::select(
+                'group_id_2',
+                $options_group_2,
+                Arr::get($values, 'group_id_2'),
+                array('class' => 'select_group','id' => 'group_id_2','data-number_group' => '2','autocomplete' => 'off')
+        ); ?>
+        <?= HTML::image('assets/img/icons/del.png', array('class'=>'del_group', 'id'=>'del_group_2', 'data-number_group' => '2')); ?>
+        <div class="form_error"><?= Message::show_once_error($errors, 'group_id_2'); ?></div>
+    </div>
+    <div class="div_sub_group_2 field_body <?= (!isset($values['sub_group_id_2'])) ? 'hide_field' : '' ?>">
+        <label class="lab" for="sub_group_id_2">Подкатегория</label>
+        <?= FORM::select(
+                'sub_group_id_2',
+                $options_sub_group_2,
+                Arr::get($values, 'sub_group_id_2'),
+                array('id' => 'sub_group_id_2', 'autocomplete' => 'off')
+        ); ?>
+        
+        <div class="form_error"><?= Message::show_once_error($errors, 'sub_group_id_2'); ?></div>
+    </div>
+    <div class="div_group_3 field_body <?= (!isset($values['group_id_3'])) ? 'hide_field' : '' ?>">
+        <label for="group_id_3" id="label_group_3" class="lab"><?= __('f_company_type') ?></label>
+        <?= FORM::select(
+                'group_id_3',
+                $options_group_3,
+                Arr::get($values, 'group_id_3'),
+                array('class' => 'select_group','id' => 'group_id_3','data-number_group' => '3','autocomplete' => 'off')
+        ); ?>
+        <?= HTML::image('assets/img/icons/del.png', array('class'=>'del_group', 'id'=>'del_group_3', 'data-number_group' => '3')); ?>
+        <div class="form_error"><?= Message::show_once_error($errors, 'group_id_3'); ?></div>
+    </div>
+    <div class="div_sub_group_3 field_body <?= (!isset($values['sub_group_id_3'])) ? 'hide_field' : '' ?>">
+        <label class="lab" for="sub_group_id_3">Подкатегория</label>
+        <?= FORM::select(
+                'sub_group_id_3',
+                $options_sub_group_3,
+                Arr::get($values, 'sub_group_id_3'),
+                array('id' => 'sub_group_id_3', 'autocomplete' => 'off')
+        ); ?>
+        
+        <div class="form_error"><?= Message::show_once_error($errors, 'sub_group_id_3'); ?></div>
+    </div>
+    <div class="div_group_4 field_body <?= (!isset($values['group_id_4'])) ? 'hide_field' : '' ?>">
+        <label for="group_id_4" id="label_group_4" class="lab"><?= __('f_company_type') ?></label>
+        <?= FORM::select(
+                'group_id_4',
+                $options_group_4,
+                Arr::get($values, 'group_id_4'),
+                array('class' => 'select_group','id' => 'group_id_4','data-number_group' => '4','autocomplete' => 'off')
+        ); ?>
+        <?= HTML::image('assets/img/icons/del.png', array('class'=>'del_group', 'id'=>'del_group_4', 'data-number_group' => '4')); ?>
+        <div class="form_error"><?= Message::show_once_error($errors, 'group_id_4'); ?></div>
+    </div>
+    <div class="div_sub_group_4 field_body <?= (!isset($values['sub_group_id_4'])) ? 'hide_field' : '' ?>">
+        <label class="lab" for="sub_group_id_4">Подкатегория</label>
+        <?= FORM::select(
+                'sub_group_id_4',
+                $options_sub_group_4,
+                Arr::get($values, 'sub_group_id_4'),
+                array('id' => 'sub_group_id_4', 'autocomplete' => 'off')
+        ); ?>
+        
+        <div class="form_error"><?= Message::show_once_error($errors, 'sub_group_id_4'); ?></div>
+    </div>
+    <div class="div_group_5 field_body <?= (!isset($values['group_id_5'])) ? 'hide_field' : '' ?>">
+        <label for="group_id_5" id="label_group_5" class="lab"><?= __('f_company_type') ?></label>
+        <?= FORM::select(
+                'group_id_5',
+                $options_group_5,
+                Arr::get($values, 'group_id_5'),
+                array('class' => 'select_group','id' => 'group_id_5','data-number_group' => '5','autocomplete' => 'off')
+        ); ?>
+        <?= HTML::image('assets/img/icons/del.png', array('class'=>'del_group', 'id'=>'del_group_5', 'data-number_group' => '5')); ?>
+        <div class="form_error"><?= Message::show_once_error($errors, 'group_id_5'); ?></div>
+    </div>
+    <div class="div_sub_group_5 field_body <?= (!isset($values['sub_group_id_5'])) ? 'hide_field' : '' ?>">
+        <label class="lab" for="sub_group_id_5">Подкатегория</label>
+        <?= FORM::select(
+                'sub_group_id_5',
+                $options_sub_group_5,
+                Arr::get($values, 'sub_group_id_5'),
+                array('id' => 'sub_group_id_5', 'autocomplete' => 'off')
+        ); ?>
+        
+        <div class="form_error"><?= Message::show_once_error($errors, 'sub_group_id_5'); ?></div>
     </div>
     <div class='field_body'>
         <label class="lab"><?= __('f_org_type') ?></label>
@@ -68,9 +181,9 @@ $discounts = array('0' => 'нет') + $discounts;
     </div>
     <div class='field_body'>
         <label for="city_name" class="lab"><?= __('f_city'); ?></label>
-        <?= FORM::input('city_name', Arr::get($values, 'city_name'), array('class' => 's_inp', 'id' => 'city_name')); ?>
+        <?= FORM::input('city_name', Arr::get($values, 'city_name'), array('class' => 's_inp', 'id' => 'city_name', 'autocomplete' => 'off')); ?>
         <?= HTML::anchor('feedback/add_city', 'Не нашли свой город?', array('target' => '_blank')); ?>
-        <div class="form_error"><?= Message::show_once_error($errors, 'city_id'); ?></div>
+        <div class="form_error"><?= Message::show_once_error($errors, 'city_name'); ?></div>
     </div>
     <?php
     $metros = array();

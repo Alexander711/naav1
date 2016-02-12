@@ -6,27 +6,17 @@ defined('SYSPATH') or die('No direct script access.');
 
     <?php $i=1; foreach ($result as $group): ?>
         <div>
-            <h1><?= $group['name_group'] ?></h1>
+            <?php if (isset($group['sub_group'])) { ?>
+                <strong><?= $group['name_group'] ?></strong>
+            <?php } else {?>
+                <?= HTML::anchor('#', $group['name_group']); ?>
+            <?php } ?>
         </div>
-        <?php if (isset($group['services'])) { ?>
-            <?php foreach ($group['services'] as $key=>$services): ?>
-                <div>
-                    <?= HTML::anchor('shops/'.$key, $services); ?>
-                </div>
-            <?php endforeach; ?>
-        <?php } ?>
         <?php if (isset($group['sub_group'])) { ?>
             <?php foreach ($group['sub_group'] as $sub_group): ?>
                 <div>
-                    <strong><?= $sub_group['name'] ?></strong>
+                    <?= HTML::anchor('#', $sub_group['name']); ?>
                 </div>
-                <?php if (isset($sub_group['services'])) { ?>
-                    <?php foreach ($sub_group['services'] as $key=>$services): ?>
-                        <div>
-                            <?= HTML::anchor('shops/'.$key, $services); ?>
-                        </div>
-                    <?php endforeach; ?>
-                <?php } ?>
             <?php endforeach; ?>
         <?php } ?>
         <?php if($i==$mid_array){ ?>

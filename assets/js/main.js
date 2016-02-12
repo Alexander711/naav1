@@ -388,106 +388,106 @@ $(document).ready(function () {
      * Редактирование компании, карта
      */
     /*if ($('#edit-map').length)
-    {
-        var placemark, geo_coder;
-        var addr_input = $('input[name="address"]');
-
-        map = new YMaps.Map(YMaps.jQuery('#edit-map')[0]);
-        map.setCenter(new YMaps.GeoPoint(37.64, 55.76), 2);
-        map.addControl(new YMaps.Zoom());
-        map.addControl(new YMaps.TypeControl());
-        style = new YMaps.Style();
-        style.iconStyle = new YMaps.IconStyle();
-        style.iconStyle.href = "/assets/img/service.png";
-        style.iconStyle.size = new YMaps.Point(32, 40);
-        var default_cords = ($('input[name="ymap_lat"]').val() != 0) ? {lng: $('input[name="ymap_lng"]').val(), lat: $('input[name="ymap_lat"]').val()} : {lng: 37.64, lat: 55.76};
-        var default_height = ($('input[name="ymap_lat"]').val() != 0) ? 20 : 9;
-        placemark = new YMaps.Placemark(new YMaps.GeoPoint(default_cords.lng, default_cords.lat), {draggable: true, style: style});
-        map.addOverlay(placemark);
-        map.setCenter(new YMaps.GeoPoint(default_cords.lng, default_cords.lat), default_height);
-
-        YMaps.Events.observe(placemark, placemark.Events.DragEnd, function (obj) {
-            var coords = obj.getGeoPoint();
-            $('input[name=ymap_lat]').val(coords['__lat']);
-            $('input[name=ymap_lng]').val(coords['__lng']);
-        });
-
-        $('select[name="city_id"]').change(function () {
-            var addr = ($('input[name="address"]').val() == '') ? $('select[name=city_id] option:selected').html() : $('select[name=city_id] option:selected').html() + ',' + $('input[name="address"]').val();
-            geo_coder = new YMaps.Geocoder(addr);
-            YMaps.Events.observe(geo_coder, geo_coder.Events.Load, function ()
-            {
-                if (this.length())
-                {
-
-                    var coords = this.get(0).getGeoPoint();
-                    if ($('input[name="address"]').val() == '')
-                    {
-                        map.setCenter(coords, 9);
-                    }
-                    else
-                    {
-                        map.setCenter(coords, 20);
-                    }
-
-                    placemark.setGeoPoint(coords);
-
-                    $('input[name=ymap_lat]').val(coords['__lat']);
-                    $('input[name=ymap_lng]').val(coords['__lng']);
-                }
-                else
-                {
-                    $('.map-error').html('Ошибка: введите корректный адрес');
-                }
-
-            });
-            YMaps.Events.observe(geo_coder, geo_coder.Events.Fault, function (geocoder, errorMessage) {
-                $('.map-error').html('Ошибка ' + errorMessage);
-            });
-
-        });
-        $('input[name="address"]').change(function () {
-            $('.map-error').empty();
-            if ($('select[name="city_id"]').val() == 0)
-            {
-                $('.map-error').html('Для начала выберите город');
-                return;
-            }
-            var input = $(this);
-            geo_coder = new YMaps.Geocoder($('select[name=city_id] option:selected').html() + ', ' + $(this).val());
-            YMaps.Events.observe(geo_coder, geo_coder.Events.Load, function ()
-            {
-                var height;
-                if (this.length())
-                {
-                    var coords = this.get(0).getGeoPoint();
-                    placemark.setGeoPoint(coords);
-                    if (input.val() != '')
-                    {
-                        height = 20;
-                    }
-                    else
-                    {
-                        height = 9;
-                        $('.map-error').html('Ошибка: введите адрес');
-                    }
-                    map.setCenter(coords, height);
-                    $('input[name=ymap_lat]').val(coords['__lat']);
-                    $('input[name=ymap_lng]').val(coords['__lng']);
-
-                }
-                else
-                {
-                    $('.map-error').html('Ошибка: введите корректный адрес');
-                }
-
-            });
-            YMaps.Events.observe(geo_coder, geo_coder.Events.Fault, function (geocoder, errorMessage) {
-                $('.map-error').html('Ошибка ' + errorMessage);
-            });
-        });
-
-    }*/
+     {
+     var placemark, geo_coder;
+     var addr_input = $('input[name="address"]');
+     
+     map = new YMaps.Map(YMaps.jQuery('#edit-map')[0]);
+     map.setCenter(new YMaps.GeoPoint(37.64, 55.76), 2);
+     map.addControl(new YMaps.Zoom());
+     map.addControl(new YMaps.TypeControl());
+     style = new YMaps.Style();
+     style.iconStyle = new YMaps.IconStyle();
+     style.iconStyle.href = "/assets/img/service.png";
+     style.iconStyle.size = new YMaps.Point(32, 40);
+     var default_cords = ($('input[name="ymap_lat"]').val() != 0) ? {lng: $('input[name="ymap_lng"]').val(), lat: $('input[name="ymap_lat"]').val()} : {lng: 37.64, lat: 55.76};
+     var default_height = ($('input[name="ymap_lat"]').val() != 0) ? 20 : 9;
+     placemark = new YMaps.Placemark(new YMaps.GeoPoint(default_cords.lng, default_cords.lat), {draggable: true, style: style});
+     map.addOverlay(placemark);
+     map.setCenter(new YMaps.GeoPoint(default_cords.lng, default_cords.lat), default_height);
+     
+     YMaps.Events.observe(placemark, placemark.Events.DragEnd, function (obj) {
+     var coords = obj.getGeoPoint();
+     $('input[name=ymap_lat]').val(coords['__lat']);
+     $('input[name=ymap_lng]').val(coords['__lng']);
+     });
+     
+     $('select[name="city_id"]').change(function () {
+     var addr = ($('input[name="address"]').val() == '') ? $('select[name=city_id] option:selected').html() : $('select[name=city_id] option:selected').html() + ',' + $('input[name="address"]').val();
+     geo_coder = new YMaps.Geocoder(addr);
+     YMaps.Events.observe(geo_coder, geo_coder.Events.Load, function ()
+     {
+     if (this.length())
+     {
+     
+     var coords = this.get(0).getGeoPoint();
+     if ($('input[name="address"]').val() == '')
+     {
+     map.setCenter(coords, 9);
+     }
+     else
+     {
+     map.setCenter(coords, 20);
+     }
+     
+     placemark.setGeoPoint(coords);
+     
+     $('input[name=ymap_lat]').val(coords['__lat']);
+     $('input[name=ymap_lng]').val(coords['__lng']);
+     }
+     else
+     {
+     $('.map-error').html('Ошибка: введите корректный адрес');
+     }
+     
+     });
+     YMaps.Events.observe(geo_coder, geo_coder.Events.Fault, function (geocoder, errorMessage) {
+     $('.map-error').html('Ошибка ' + errorMessage);
+     });
+     
+     });
+     $('input[name="address"]').change(function () {
+     $('.map-error').empty();
+     if ($('select[name="city_id"]').val() == 0)
+     {
+     $('.map-error').html('Для начала выберите город');
+     return;
+     }
+     var input = $(this);
+     geo_coder = new YMaps.Geocoder($('select[name=city_id] option:selected').html() + ', ' + $(this).val());
+     YMaps.Events.observe(geo_coder, geo_coder.Events.Load, function ()
+     {
+     var height;
+     if (this.length())
+     {
+     var coords = this.get(0).getGeoPoint();
+     placemark.setGeoPoint(coords);
+     if (input.val() != '')
+     {
+     height = 20;
+     }
+     else
+     {
+     height = 9;
+     $('.map-error').html('Ошибка: введите адрес');
+     }
+     map.setCenter(coords, height);
+     $('input[name=ymap_lat]').val(coords['__lat']);
+     $('input[name=ymap_lng]').val(coords['__lng']);
+     
+     }
+     else
+     {
+     $('.map-error').html('Ошибка: введите корректный адрес');
+     }
+     
+     });
+     YMaps.Events.observe(geo_coder, geo_coder.Events.Fault, function (geocoder, errorMessage) {
+     $('.map-error').html('Ошибка ' + errorMessage);
+     });
+     });
+     
+     }*/
     $('.expand_other_city').live(
             {
                 mouseenter: function ()
@@ -587,62 +587,7 @@ $(document).ready(function () {
                 }
             })
             .triggerHandler("multiselectclick");
-    // City in adding company
-    $('.st_form #city_name').change(
-            function ()
-            {
-                var id = $(this).val();
-                if (id != 0)
-                {
-                    $.ajax(
-                            {
-                                url: host_name + 'ajax/get_metro_and_district/' + id,
-                                dataType: 'json',
-                                success: function (result)
-                                {
-                                    if (result['error'] != '')
-                                    {
-                                        alert(result['error']);
-                                        return false;
-                                    }
-                                    if (result['data']['metro_form'] != '')
-                                    {
-                                        $('.st_form .metro_select').html(result['data']['metro_form']);
-                                        $('.st_form .metro').show();
-                                    }
-                                    else
-                                    {
-                                        $('.st_form .metro_select').empty();
-                                        $('.st_form .metro').hide();
-                                    }
 
-                                    if (result['data']['district_form'] != '')
-                                    {
-                                        $('.st_form .district_select').html(result['data']['district_form']);
-                                        $('.st_form .district').show();
-                                    }
-                                    else
-                                    {
-                                        $('.st_form .district_select').empty();
-                                        $('.st_form .district').hide();
-                                    }
-                                },
-                                error: function ()
-                                {
-                                    alert('Ошибка отправки/принятия данных');
-                                }
-                            }
-                    );
-                    //alert(id);
-                }
-                else
-                {
-                    $('.st_form .metro_select, .st_form .district_select').empty();
-                    $('.st_form .metro, .st_form .district').hide();
-                }
-
-            }
-    );
     // Company type in adding company
     $('.st_form #company_type').change(
             function ()
