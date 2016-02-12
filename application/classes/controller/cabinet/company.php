@@ -78,6 +78,19 @@ class Controller_Cabinet_Company extends Controller_Cabinet {
         $discounts = ORM::factory('discount')->get_all_as_array();
         $org_types = ORM::factory('orgtype')->get_all_as_array();
         $groups = ORM::factory('group')->get_groups_as_array();
+        $options_new_groups = array();
+        $options_group_2 = array();
+        $options_group_3 = array();
+        $options_group_4 = array();
+        $options_group_5 = array();
+        $options_sub_group_1 = array();
+        $options_sub_group_2 = array();
+        $options_sub_group_3 = array();
+        $options_sub_group_4 = array();
+        $options_sub_group_5 = array();
+        $groups_post = array();
+        $count_groups = 0;
+        $type = 0;
 
         $groups = array(0 => 'Выберите категорию') + $groups;
 
@@ -86,13 +99,64 @@ class Controller_Cabinet_Company extends Controller_Cabinet {
 
             try {
 
-                $extra_validation = Validation::factory($_POST)
-                        ->rule('group_id', 'Model_Group::check_valid_group', array(':value'));
+                $extra_validation = Validation::factory($_POST);
+
+                if (isset($_POST['sub_group_id_1'])) {
+                    $extra_validation->rule('sub_group_id_1', 'Model_Group::check_valid_group', array(':value'));
+
+                    $groups_post[] = $_POST['sub_group_id_1'];
+                } else {
+                    $extra_validation->rule('group_id_1', 'Model_Group::check_valid_group', array(':value'));
+
+                    $groups_post[] = $_POST['group_id_1'];
+                }
+
+                if (isset($_POST['sub_group_id_2'])) {
+                    $extra_validation->rule('sub_group_id_2', 'Model_Group::check_valid_group', array(':value'));
+
+                    $groups_post[] = $_POST['sub_group_id_2'];
+                } elseif (isset($_POST['group_id_2'])) {
+                    $extra_validation->rule('group_id_2', 'Model_Group::check_valid_group', array(':value'));
+
+                    $groups_post[] = $_POST['group_id_2'];
+                }
+
+                if (isset($_POST['sub_group_id_3'])) {
+                    $extra_validation->rule('sub_group_id_3', 'Model_Group::check_valid_group', array(':value'));
+
+                    $groups_post[] = $_POST['sub_group_id_3'];
+                } elseif (isset($_POST['group_id_3'])) {
+                    $extra_validation->rule('group_id_3', 'Model_Group::check_valid_group', array(':value'));
+
+                    $groups_post[] = $_POST['group_id_3'];
+                }
+
+                if (isset($_POST['sub_group_id_4'])) {
+                    $extra_validation->rule('sub_group_id_4', 'Model_Group::check_valid_group', array(':value'));
+
+                    $groups_post[] = $_POST['sub_group_id_4'];
+                } elseif (isset($_POST['group_id_4'])) {
+                    $extra_validation->rule('group_id_4', 'Model_Group::check_valid_group', array(':value'));
+
+                    $groups_post[] = $_POST['group_id_4'];
+                }
+
+                if (isset($_POST['sub_group_id_5'])) {
+                    $extra_validation->rule('sub_group_id_5', 'Model_Group::check_valid_group', array(':value'));
+
+                    $groups_post[] = $_POST['sub_group_id_5'];
+                } elseif (isset($_POST['group_id_5'])) {
+                    $extra_validation->rule('group_id_5', 'Model_Group::check_valid_group', array(':value'));
+
+                    $groups_post[] = $_POST['group_id_5'];
+                }
+
+                $extra_validation->rule('city_name', 'not_empty')
+                        ->rule('city_name', 'Model_Service::check_valid_city', array(':value'));
 
                 $company->values($_POST, array('name', 'org_type', 'inn', 'director_name', 'contact_person', 'address', 'phone', 'code', 'fax', 'site', 'about', 'work_times', 'discount_id', 'coupon_text', 'ymap_lng', 'ymap_lat'));
                 $company->user_id = $this->user->id;
-                $company->city_id = 1;
-                //$company->city_id = Arr::get($_POST, 'city_id', NULL);
+                $company->city_id = ORM::factory('service')->get_id_city(Arr::get($_POST, 'city_name', NULL));
                 $company->metro_id = Arr::get($_POST, 'metro_id', NULL);
                 $company->district_id = Arr::get($_POST, 'district_id', NULL);
                 $company->active = 1;
@@ -107,9 +171,7 @@ class Controller_Cabinet_Company extends Controller_Cabinet {
                     $company->add('cars', $c);
                 }
 
-                $groups_input = Arr::get($_POST, 'group_id', array());
-
-                foreach ($groups_input as $g) {
+                foreach ($groups_post as $g) {
                     $company->add('group', $g);
                 }
 
@@ -125,8 +187,62 @@ class Controller_Cabinet_Company extends Controller_Cabinet {
                 Message::set(Message::SUCCESS, 'Фирма успешно добавлена! ' . HTML::anchor('cabinet/company/gallery/' . $company->id, 'Загрузить изображения для галерии'));
                 $this->request->redirect('cabinet/company');
             } catch (ORM_Validation_Exception $e) {
-                $this->errors = $e->errors('models');
+                $errors = $e->errors('models');
 
+                if (isset($errors['_external'])) {
+                    foreach ($errors['_external'] as $key => $value) {
+                        $errors[$key] = $value;
+                    }
+                    unset($errors['_external']);
+                }
+
+                if ($_POST['group_id_1'] != 0) {
+                    $type = ORM::factory('group')->get_type_group(Arr::get($_POST, 'group_id_1', NULL));
+
+                    $options_new_groups = array(0 => "Выберите категорию") + ORM::factory('group')->get_groups_this_type($type);
+                }
+                
+                if (isset($_POST['group_id_2'])) {
+                    $options_group_2 = $options_new_groups;
+                    $count_groups++;
+                }
+                
+                if (isset($_POST['group_id_3'])) {
+                    $options_group_3 = $options_new_groups;
+                    $count_groups++;
+                }
+                
+                if (isset($_POST['group_id_4'])) {
+                    $options_group_4 = $options_new_groups;
+                    $count_groups++;
+                }
+                if (isset($_POST['group_id_5'])) {
+                    $options_group_5 = $options_new_groups;
+                    $count_groups++;
+                }
+
+                if (isset($_POST['sub_group_id_1'])) {
+                    $options_sub_group_1 = ORM::factory('group')->get_sub_groups_for_group($_POST['group_id_1']);
+                    $options_sub_group_1 = array(0 => "Выберите подкатегорию") + $options_sub_group_1;
+                }
+                if (isset($_POST['sub_group_id_2'])) {
+                    $options_sub_group_2 = ORM::factory('group')->get_sub_groups_for_group($_POST['group_id_2']);
+                    $options_sub_group_2 = array(0 => "Выберите подкатегорию") + $options_sub_group_2;
+                }
+                if (isset($_POST['sub_group_id_3'])) {
+                    $options_sub_group_3 = ORM::factory('group')->get_sub_groups_for_group($_POST['group_id_3']);
+                    $options_sub_group_3 = array(0 => "Выберите подкатегорию") + $options_sub_group_3;
+                }
+                if (isset($_POST['sub_group_id_4'])) {
+                    $options_sub_group_4 = ORM::factory('group')->get_sub_groups_for_group($_POST['group_id_4']);
+                    $options_sub_group_4 = array(0 => "Выберите подкатегорию") + $options_sub_group_4;
+                }
+                if (isset($_POST['sub_group_id_5'])) {
+                    $options_sub_group_5 = ORM::factory('group')->get_sub_groups_for_group($_POST['group_id_5']);
+                    $options_sub_group_5 = array(0 => "Выберите подкатегорию") + $options_sub_group_5;
+                }
+                print_r($errors);
+                $this->errors = $errors;
                 $this->values = $_POST;
                 $group_type = empty($this->values['group']) ? 0 : $this->values['group'];
             }
@@ -145,6 +261,18 @@ class Controller_Cabinet_Company extends Controller_Cabinet {
                 ->set('auto_models', $cars)
                 ->set('cities', $city_options)
                 ->set('discounts', $discounts)
+                ->set('options_new_groups', $options_new_groups)
+                ->set('count_groups', $count_groups)
+                ->set('type_group', $type)
+                ->set('options_group_2', $options_group_2)
+                ->set('options_group_3', $options_group_3)
+                ->set('options_group_4', $options_group_4)
+                ->set('options_group_5', $options_group_5)
+                ->set('options_sub_group_1', $options_sub_group_1)
+                ->set('options_sub_group_2', $options_sub_group_2)
+                ->set('options_sub_group_3', $options_sub_group_3)
+                ->set('options_sub_group_4', $options_sub_group_4)
+                ->set('options_sub_group_5', $options_sub_group_5)
                 ->set('values', $this->values)
                 ->set('errors', $this->errors);
         $this->add_js('http://api-maps.yandex.ru/1.1/index.xml?key=' . $this->settings['YMaps_key'] . '&onerror=map_alert');
@@ -261,7 +389,7 @@ class Controller_Cabinet_Company extends Controller_Cabinet {
     }
 
     public function action_get_sub_groups() {
-        $result['sub_groups'] = ORM::factory('group')->get_sub_groups_type_for_group($_POST);
+        $result['sub_groups'] = ORM::factory('group')->get_sub_groups_for_group($_POST['group_id']);
 
         $result['type_group'] = ORM::factory('group')->get_type_group($_POST['group_id']);
 
@@ -271,15 +399,16 @@ class Controller_Cabinet_Company extends Controller_Cabinet {
 
     public function action_get_cities() {
         $cities = ORM::factory('service')->get_cities($_POST);
-        
+
         print_r(json_encode($cities));
         exit;
     }
 
     public function action_get_groups_this_type() {
-        $groups = ORM::factory('group')->get_groups_this_type($_POST);
-        
+        $groups = ORM::factory('group')->get_groups_this_type($_POST['type']);
+
         print_r(json_encode($groups));
         exit;
     }
+
 }

@@ -17,5 +17,39 @@ return array(
     ),
     'antibot' => array(
         'not_empty' => 'Подвердите отправку отзыва'
-    )
+    ),
+    'group_id_1' => array(
+        'Model_Group::check_valid_group' => 'Неправильная группа'
+    ),
+    'sub_group_id_1' => array(
+        'Model_Group::check_valid_group' => 'Неправильная подгруппа'
+    ),
+    'group_id_2' => array(
+        'Model_Group::check_valid_group' => 'Неправильная группа'
+    ),
+    'sub_group_id_2' => array(
+        'Model_Group::check_valid_group' => 'Неправильная подгруппа'
+    ),
+    'group_id_3' => array(
+        'Model_Group::check_valid_group' => 'Неправильная группа'
+    ),
+    'sub_group_id_3' => array(
+        'Model_Group::check_valid_group' => 'Неправильная подгруппа'
+    ),
+    'group_id_4' => array(
+        'Model_Group::check_valid_group' => 'Неправильная группа'
+    ),
+    'sub_group_id_4' => array(
+        'Model_Group::check_valid_group' => 'Неправильная подгруппа'
+    ),
+    'group_id_5' => array(
+        'Model_Group::check_valid_group' => 'Неправильная группа'
+    ),
+    'sub_group_id_5' => array(
+        'Model_Group::check_valid_group' => 'Неправильная подгруппа'
+    ),
+    'city_name' => array(
+        'not_empty' => 'Введите город',
+        'Model_Service::check_valid_city' => 'Такого городе нет'
+    ),
 );

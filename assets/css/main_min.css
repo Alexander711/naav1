@@ -1967,7 +1967,7 @@ input.delete, a.delete, button.delete {
     background: -o-linear-gradient(top, rgba(122, 188, 255, 1) 0, rgba(96, 171, 248, 1) 44%, rgba(64, 150, 238, 1) 100%);
     background: -ms-linear-gradient(top, rgba(122, 188, 255, 1) 0, rgba(96, 171, 248, 1) 44%, rgba(64, 150, 238, 1) 100%);
     background: linear-gradient(to bottom, rgba(122, 188, 255, 1) 0, rgba(96, 171, 248, 1) 44%, rgba(64, 150, 238, 1) 100%);
-    }
+}
 
 #qfilter .qfilter-filters-nav li, #qfilter .qfilter-cities li {
     float: left
@@ -2000,7 +2000,7 @@ input.delete, a.delete, button.delete {
     background: url("../../assets/img/qfilter_map.png") no-repeat 10px 3px, -ms-linear-gradient(top, rgba(122, 188, 255, 1) 0, rgba(96, 171, 248, 1) 44%, rgba(64, 150, 238, 1) 100%);
     background: url("../../assets/img/qfilter_map.png") no-repeat 10px 3px, linear-gradient(to bottom, rgba(122, 188, 255, 1) 0, rgba(96, 171, 248, 1) 44%, rgba(64, 150, 238, 1) 100%);
 
-    }
+}
 
 #qfilter .qfilter-main-cities {
     background: #FFF;
@@ -3350,7 +3350,16 @@ legend {
     -webkit-box-sizing: border-box
 }
 
-.field_body{
+.field_body {
     margin-top: 10px;
     margin-bottom: 10px;
+}
+
+.hide_field {
+    display: none;
+}
+
+.del_group {
+    height: 10px;
+    cursor: pointer;
 }

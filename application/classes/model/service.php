@@ -877,7 +877,7 @@ class Model_Service extends ORM {
         
         $city_array = DB::select('name')
                 ->from('cities')
-                ->where('name', 'LIKE', '%'.mysql_real_escape_string($post['str']).'%')
+                ->where('name', 'LIKE', '%'.$post['str'].'%')
                 ->execute();
         
         foreach ($city_array as $city) {
@@ -885,5 +885,17 @@ class Model_Service extends ORM {
         }
         
         return $result;
+    }
+    
+    static function check_valid_city($city_name) {
+        $city_id = DB::select(array('id', 'city_id'))->from('cities')->where('name', '=', $city_name)->execute()->get('city_id');
+
+        return !empty($city_id);
+    }
+    
+    public function get_id_city($city_name) {
+        $city_id = DB::select(array('id', 'city_id'))->from('cities')->where('name', '=', $city_name)->execute()->get('city_id');
+
+        return $city_id;
     }
 }
