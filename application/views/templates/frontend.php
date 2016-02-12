@@ -55,7 +55,7 @@ defined('SYSPATH') or die('No direct script access.'); ?>
                 <?php if (!$user): ?>
                     <?= FORM::open('login'); ?>
                     <ul>
-                        <li><?= HTML::anchor('registration', 'ВСТУПИТЬ'); ?></li>
+                        <li style="margin-right: 260px;"><?= HTML::anchor('registration', 'ВСТУПИТЬ'); ?></li>
                         <!--li><?= __('f_username_header'); ?></li-->
                         <li><?= FORM::input('username', NULL, array('placeholder'=> 'Логин', 'style' => 'width: 100px;')); ?></li>
                         <li><!--?= __('f_password'); ?--></li>
@@ -141,10 +141,8 @@ defined('SYSPATH') or die('No direct script access.'); ?>
         </div>
        
     </div>
-    <div class="empty"></div>
-</div>
+    </div>
 <div id="footer">
-    <div id="content_bottom_img"></div>
     <!--div class="social">
         <ul>
             <li><?= HTML::anchor('http://vk.com/avtoserviceas', '&nbsp', array('class' => 'vk')) ?></li>

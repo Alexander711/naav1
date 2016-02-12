@@ -126,17 +126,12 @@ html, body {
     border-right: 1px solid #cecece
 }
 
-#content_bottom_img {
-    height: 72px;
-    background: url("../../assets/img/footer_img.png") center no-repeat #FFF
-}
-
 #main_container .empty, #footer {
-    height: 142px
+    height: 70px
 }
 
 #footer {
-    margin: -142px auto 0;
+    margin: 0px auto 0;
     position: relative;
     width: 1000px;
     text-align: center;
@@ -2302,7 +2297,7 @@ input.delete, a.delete, button.delete {
 
 #header div.region_expand {
     position: absolute;
-    left: 92%;
+    left: 88%;
     top: 75%;
     z-index: 999
 }
@@ -2414,8 +2409,8 @@ input.delete, a.delete, button.delete {
 }
 .assoc-news .assoc-news-title
 {
-    /*color: #4E9FF2;*/
-    font-size: 18px;
+    color: #8B8B8B;
+    font-size: 15px;
     margin-bottom: 5px;
 }
 
@@ -3102,7 +3097,7 @@ legend {
     color: #444;
     border: 1px solid #e7e4e4;
     border-radius: 5px 5px 0 0;
-    padding: 10px 15px 7px 55px
+    padding: 10px 15px 7px 5px
 }
 
 .h_section>.title a {
@@ -3113,59 +3108,6 @@ legend {
     padding: 0 20px 0 0;
     text-decoration: none;
     background: url("../../assets/img/icons/more.png") no-repeat right
-}
-
-.h_section .ribbon {
-    position: absolute;
-    height: 46px;
-    background: #444;
-    width: 36px;
-    top: 11px;
-    left: 15px;
-    z-index: 10;
-    background: url("../../assets/img/ribbons.png") no-repeat
-}
-
-.h_section .ribbon.ribbon-articles {
-    background-position: 0 0;
-    width: 39px;
-    height: 46px
-}
-
-.h_section .ribbon.ribbon-best-services {
-    background-position: 0 -96px;
-    width: 39px;
-    height: 46px
-}
-
-.h_section .ribbon.ribbon-questions {
-    background-position: 0 -192px;
-    width: 39px;
-    height: 46px
-}
-
-.h_section .ribbon.ribbon-reviews {
-    background-position: 0 -288px;
-    width: 39px;
-    height: 46px
-}
-
-.h_section .ribbon.ribbon-service-news {
-    background-position: 0 -384px;
-    width: 39px;
-    height: 46px
-}
-
-.h_section .ribbon.ribbon-stocks {
-    background-position: 0 -480px;
-    width: 39px;
-    height: 46px
-}
-
-.h_section .ribbon.ribbon-world-news {
-    background-position: 0 -576px;
-    width: 39px;
-    height: 46px
 }
 
 .h_section .buttons {
