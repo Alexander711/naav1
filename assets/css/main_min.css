@@ -136,7 +136,7 @@ html, body {
     width: 1000px;
     text-align: center;
     color: #FFF;
-    background: #5c5c5c;
+    background: #A7A7A7;
     border-left: 1px solid #cecece;
     border-right: 1px solid #cecece
 }
@@ -196,7 +196,7 @@ html, body {
 
 #footer .social li {
     float: left;
-    margin: 0 5px
+    margin: 20px 10px
 }
 
 #footer .social .twitter {
@@ -3362,4 +3362,29 @@ legend {
 .del_group {
     height: 10px;
     cursor: pointer;
+}
+
+.serv_list_column>ul>li {
+   list-style: none;
+   margin-bottom:10px;
+}
+
+.serv_list_column>ul>li>a{
+   color: inherit;
+   font-weight: bold;
+}
+
+.serv_list_column>ul>li>ul {
+   margin-bottom:10px;
+}
+
+.group>ul>li{
+   list-style:none;
+}
+.group>ul>li>a{
+   color: inherit;
+}
+
+.group>h2{
+   font-weight: bold;
 }
