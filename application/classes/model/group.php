@@ -43,11 +43,21 @@ class Model_Group extends ORM {
         return $goups;
     }
 
-    public function get_sub_groups_for_group($group_id) {
+    public function get_sub_groups_for_one_group($group_id) {
         $sub_groups = array();
 
         foreach ($this->where('parrent_id', '=', $group_id)->find_all() as $data) {
             $sub_groups[$data->id] = $data->name;
+        }
+
+        return $sub_groups;
+    }
+    
+    public function get_sub_groups_for_groups($data_groups) {
+        $sub_groups = array();
+
+        foreach ($this->where('parrent_id', 'in', $data_groups)->find_all() as $data) {
+            $sub_groups[$data->parrent_id][] = array('id'=>$data->id, 'name'=>$data->name);
         }
 
         return $sub_groups;
