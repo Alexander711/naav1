@@ -145,7 +145,6 @@ defined('SYSPATH') or die('No direct script access.'); ?>
 <div id="footer">
    <div class="social" style="position: initial;">
       <ul>
-            <li><?= HTML::image('assets/img/logo_footer.png', array('alt' => 'Логотип сайта')); ?></li>
             <li><?= HTML::image('assets/img/logo_lada.png', array('alt' => 'Логотип ВАЗ')); ?></li>
             <li><?= HTML::image('assets/img/logo_kamaz.png', array('alt' => 'Логотип Камаз')); ?></li>
             <li><?= HTML::image('assets/img/logo_rosgosstrah.png', array('alt' => 'Логотип Росгосстрах')); ?></li>
