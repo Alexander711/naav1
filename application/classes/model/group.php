@@ -53,30 +53,10 @@ class Model_Group extends ORM {
         return $sub_groups;
     }
     
-    public function get_sub_groups_for_groups($data_groups) {
-        $sub_groups = array();
-
-        foreach ($this->where('parrent_id', 'in', $data_groups)->find_all() as $data) {
-            $sub_groups[$data->parrent_id][] = array('id'=>$data->id, 'name'=>$data->name);
-        }
-
-        return $sub_groups;
-    }
-
     public function get_type_group($group_id) {
         $group = $this->where('id', '=', $group_id)->find();
 
         return $group->type;
-    }
-
-    public function get_groups_this_type($type) {
-        $groups = array();
-
-        foreach ($this->where('type', '=', $type)->find_all() as $data) {
-            $groups[$data->id] = $data->name;
-        }
-
-        return $groups;
     }
 
     /**

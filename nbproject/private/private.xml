@@ -7,10 +7,12 @@
             <file>file:/D:/wamp/www/naav/assets/js/script.js</file>
             <file>file:/D:/wamp/www/naav/assets/js/main.js</file>
             <file>file:/D:/wamp/www/naav/application/views/frontend/cabinet/company/form.php</file>
+            <file>file:/D:/wamp/www/naav/application/i18n/ru.php</file>
             <file>file:/D:/wamp/www/naav/assets/css/main_min.css</file>
             <file>file:/D:/wamp/www/naav/application/classes/controller/cabinet/company.php</file>
             <file>file:/D:/wamp/www/naav/application/classes/model/group.php</file>
             <file>file:/D:/wamp/www/naav/application/classes/controller/cabinet.php</file>
+            <file>file:/D:/wamp/www/naav/application/classes/model/notice.php</file>
             <file>file:/D:/wamp/www/naav/application/classes/model/service.php</file>
         </group>
     </open-files>

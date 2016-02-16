@@ -29,127 +29,28 @@ $discounts = array('0' => 'нет') + $discounts;
         <li><?= HTML::anchor('cabinet/company/gallery/'.$company->id, 'Галерея'); ?></li>
     </ul>
 <?php endif; ?>
-<?php ($count_groups == 0) ? $next_group = 2 : $next_group = $count_groups ?>
+
 <div class="st_form">
-    <div class='field_body'>
-        <a href='javascript:void(0)' class='add_group' data-next_group='<?= $next_group ?>'>Добавить категорию</a>
-    </div>
-    <?php ($count_groups == 0) ? $flag_first = 'first' : $flag_first = '' ?>
-    
-    <?php if($type_group == 0) {
-        $params = array('class' => 'select_group '.$flag_first,'id' => 'group_id_1','data-number_group' => '1','autocomplete' => 'off');
-    } else {
-        $params = array('class' => 'select_group '.$flag_first,'id' => 'group_id_1','data-number_group' => '1', 'data-type_group' => $type_group, 'autocomplete' => 'off');
-    } ?>
-
-    <div class="div_group_1 field_body">
-        <label for="group_id_1" id="label_group_1" class="lab"><?= __('f_group_1') ?></label>
+    <div class="div_group field_body">
+        <label for="group_id" class="lab"><?= __('f_group') ?></label>
         <?= FORM::select(
-                'group_id_1',
+                'group_id',
                 $groups,
-                Arr::get($values, 'group_id_1'),
-                $params
+                Arr::get($values, 'group_id'),
+                array('class' => 'select_group','id' => 'group_id', 'autocomplete' => 'off')
         ); ?>
-        <div class="form_error er_group_1"><?= Message::show_once_error($errors, 'group_id_1'); ?></div>
+        <div class="form_error er_group_1"><?= Message::show_once_error($errors, 'group_id'); ?></div>
     </div>
-    <div class="div_sub_group_1 field_body <?= (!isset($values['sub_group_id_1'])) ? 'hide_field' : '' ?>">
-        <label class="lab" for="sub_group_id_1"><?= __('f_sub_group_1') ?></label>
+    <div class="div_sub_group field_body <?= (!isset($values['sub_group_id'])) ? 'hide_field' : '' ?>">
+        <label class="lab" for="sub_group_id"><?= __('f_sub_group') ?></label>
         <?= FORM::select(
-                'sub_group_id_1',
-                $options_sub_group_1,
-                Arr::get($values, 'sub_group_id_1'),
-                array('id' => 'sub_group_id_1', 'autocomplete' => 'off')
+                'sub_group_id',
+                $options_sub_group,
+                Arr::get($values, 'sub_group_id'),
+                array('id' => 'sub_group_id', 'autocomplete' => 'off')
         ); ?>
         
-        <div class="form_error er_sub_group_1"><?= Message::show_once_error($errors, 'sub_group_id_1'); ?></div>
-    </div>
-    <div class="div_group_2 field_body <?= (!isset($values['group_id_2'])) ? 'hide_field' : '' ?>">
-        <label for="group_id_2" id="label_group_2" class="lab"><?= __('f_group_2') ?></label>
-        <?= FORM::select(
-                'group_id_2',
-                $options_group_2,
-                Arr::get($values, 'group_id_2'),
-                array('class' => 'select_group','id' => 'group_id_2','data-number_group' => '2','autocomplete' => 'off')
-        ); ?>
-        <?= HTML::image('assets/img/icons/del.png', array('class'=>'del_group', 'id'=>'del_group_2', 'data-number_group' => '2')); ?>
-        <div class="form_error er_group_2"><?= Message::show_once_error($errors, 'group_id_2'); ?></div>
-    </div>
-    <div class="div_sub_group_2 field_body <?= (!isset($values['sub_group_id_2'])) ? 'hide_field' : '' ?>">
-        <label class="lab" for="sub_group_id_2"><?= __('f_sub_group_2') ?></label>
-        <?= FORM::select(
-                'sub_group_id_2',
-                $options_sub_group_2,
-                Arr::get($values, 'sub_group_id_2'),
-                array('id' => 'sub_group_id_2', 'autocomplete' => 'off')
-        ); ?>
-        
-        <div class="form_error er_sub_group_2"><?= Message::show_once_error($errors, 'sub_group_id_2'); ?></div>
-    </div>
-    <div class="div_group_3 field_body <?= (!isset($values['group_id_3'])) ? 'hide_field' : '' ?>">
-        <label for="group_id_3" id="label_group_3" class="lab"><?= __('f_group_3') ?></label>
-        <?= FORM::select(
-                'group_id_3',
-                $options_group_3,
-                Arr::get($values, 'group_id_3'),
-                array('class' => 'select_group','id' => 'group_id_3','data-number_group' => '3','autocomplete' => 'off')
-        ); ?>
-        <?= HTML::image('assets/img/icons/del.png', array('class'=>'del_group', 'id'=>'del_group_3', 'data-number_group' => '3')); ?>
-        <div class="form_error er_group_3"><?= Message::show_once_error($errors, 'group_id_3'); ?></div>
-    </div>
-    <div class="div_sub_group_3 field_body <?= (!isset($values['sub_group_id_3'])) ? 'hide_field' : '' ?>">
-        <label class="lab" for="sub_group_id_3"><?= __('f_sub_group_3') ?></label>
-        <?= FORM::select(
-                'sub_group_id_3',
-                $options_sub_group_3,
-                Arr::get($values, 'sub_group_id_3'),
-                array('id' => 'sub_group_id_3', 'autocomplete' => 'off')
-        ); ?>
-        
-        <div class="form_error er_sub_group_3"><?= Message::show_once_error($errors, 'sub_group_id_3'); ?></div>
-    </div>
-    <div class="div_group_4 field_body <?= (!isset($values['group_id_4'])) ? 'hide_field' : '' ?>">
-        <label for="group_id_4" id="label_group_4" class="lab"><?= __('f_group_4') ?></label>
-        <?= FORM::select(
-                'group_id_4',
-                $options_group_4,
-                Arr::get($values, 'group_id_4'),
-                array('class' => 'select_group','id' => 'group_id_4','data-number_group' => '4','autocomplete' => 'off')
-        ); ?>
-        <?= HTML::image('assets/img/icons/del.png', array('class'=>'del_group', 'id'=>'del_group_4', 'data-number_group' => '4')); ?>
-        <div class="form_error er_group_4"><?= Message::show_once_error($errors, 'group_id_4'); ?></div>
-    </div>
-    <div class="div_sub_group_4 field_body <?= (!isset($values['sub_group_id_4'])) ? 'hide_field' : '' ?>">
-        <label class="lab" for="sub_group_id_4"><?= __('f_sub_group_4') ?></label>
-        <?= FORM::select(
-                'sub_group_id_4',
-                $options_sub_group_4,
-                Arr::get($values, 'sub_group_id_4'),
-                array('id' => 'sub_group_id_4', 'autocomplete' => 'off')
-        ); ?>
-        
-        <div class="form_error er_sub_group_4"><?= Message::show_once_error($errors, 'sub_group_id_4'); ?></div>
-    </div>
-    <div class="div_group_5 field_body <?= (!isset($values['group_id_5'])) ? 'hide_field' : '' ?>">
-        <label for="group_id_5" id="label_group_5" class="lab"><?= __('f_group_5') ?></label>
-        <?= FORM::select(
-                'group_id_5',
-                $options_group_5,
-                Arr::get($values, 'group_id_5'),
-                array('class' => 'select_group','id' => 'group_id_5','data-number_group' => '5','autocomplete' => 'off')
-        ); ?>
-        <?= HTML::image('assets/img/icons/del.png', array('class'=>'del_group', 'id'=>'del_group_5', 'data-number_group' => '5')); ?>
-        <div class="form_error er_group_5"><?= Message::show_once_error($errors, 'group_id_5'); ?></div>
-    </div>
-    <div class="div_sub_group_5 field_body <?= (!isset($values['sub_group_id_5'])) ? 'hide_field' : '' ?>">
-        <label class="lab" for="sub_group_id_5"><?= __('f_sub_group_5') ?></label>
-        <?= FORM::select(
-                'sub_group_id_5',
-                $options_sub_group_5,
-                Arr::get($values, 'sub_group_id_5'),
-                array('id' => 'sub_group_id_5', 'autocomplete' => 'off')
-        ); ?>
-
-        <div class="form_error er_sub_group_5"><?= Message::show_once_error($errors, 'sub_group_id_5'); ?></div>
+        <div class="form_error er_sub_group"><?= Message::show_once_error($errors, 'sub_group_id'); ?></div>
     </div>
     <div class='field_body'>
         <label class="lab"><?= __('f_org_type') ?></label>
@@ -190,7 +91,7 @@ $discounts = array('0' => 'нет') + $discounts;
     $metros = array();
     $districts = array();
 
-    $current_city = $city->where('id', '=', Arr::get($values, 'city_name', FALSE))->find();
+    $current_city = $city->where('name', '=', Arr::get($values, 'city_name', FALSE))->find();
     foreach ($current_city->metro->find_all() as $metro)
     {
         $metros[$metro->id] = $metro->name;
@@ -234,7 +135,7 @@ $discounts = array('0' => 'нет') + $discounts;
         <label for="site" class="lab"><?= __('f_site'); ?></label>
         <?= FORM::input('site', Arr::get($values, 'site'), array('class' => 's_inp', 'id' => 'site')); ?>
     </div>
-    <div class="auto_models field_body">
+    <div class="auto_models field_body <?= ($type == 1) ? '' : 'hide_field' ?>">
         <label for="auto_models" class="lab"><?= __('f_auto_models'); ?></label>
         <select id="auto_models" multiple="multiple" name="model[]" style="width: 400px;">
         <?php foreach ($auto_models as $id => $name): ?>
@@ -251,7 +152,8 @@ $discounts = array('0' => 'нет') + $discounts;
 
         <div id="selected_models"></div>
     </div>
-    <div class="works field_body">
+
+    <div class="works field_body <?= ($type == 2) ? '' : 'hide_field' ?>">
         <label for="works" class="lab"><?= __('f_works'); ?></label>
         <select id="works" multiple="multiple" name="work[]" style="width: 400px;">
             <?php foreach ($work_category->find_all() as $category): ?>
