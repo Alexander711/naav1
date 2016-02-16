@@ -200,48 +200,80 @@ class Controller_Cabinet_Company extends Controller_Cabinet {
                     $type = ORM::factory('group')->get_type_group(Arr::get($_POST, 'group_id_1', NULL));
 
                     $options_new_groups = array(0 => "Выберите категорию") + ORM::factory('group')->get_groups_this_type($type);
-                }
-                
-                if (isset($_POST['group_id_2'])) {
-                    $options_group_2 = $options_new_groups;
-                    $count_groups++;
-                }
-                
-                if (isset($_POST['group_id_3'])) {
-                    $options_group_3 = $options_new_groups;
-                    $count_groups++;
-                }
-                
-                if (isset($_POST['group_id_4'])) {
-                    $options_group_4 = $options_new_groups;
-                    $count_groups++;
-                }
-                if (isset($_POST['group_id_5'])) {
-                    $options_group_5 = $options_new_groups;
-                    $count_groups++;
+
+                    if (isset($_POST['group_id_2'])) {
+                        $options_group_2 = $options_new_groups;
+                        $count_groups++;
+                    }
+
+                    if (isset($_POST['group_id_3'])) {
+                        $options_group_3 = $options_new_groups;
+                        $count_groups++;
+                    }
+
+                    if (isset($_POST['group_id_4'])) {
+                        $options_group_4 = $options_new_groups;
+                        $count_groups++;
+                    }
+                    if (isset($_POST['group_id_5'])) {
+                        $options_group_5 = $options_new_groups;
+                        $count_groups++;
+                    }
+
+                    $data_groups = array(
+                        Arr::get($_POST, 'group_id_1', NULL),
+                        Arr::get($_POST, 'group_id_2', NULL),
+                        Arr::get($_POST, 'group_id_3', NULL),
+                        Arr::get($_POST, 'group_id_4', NULL),
+                        Arr::get($_POST, 'group_id_5', NULL),
+                    );
+
+                    $options_sub_groups = ORM::factory('group')->get_sub_groups_for_groups($data_groups);
+
+                    foreach ($options_sub_groups as $key => $sub_group) {
+                        foreach ($sub_group as $date) {
+                            if (isset($_POST['group_id_1']) and ( $_POST['group_id_1'] == $key)) {
+                                $options_sub_group_1[$date['id']] = $date['name'];
+                            }
+
+                            if (isset($_POST['group_id_2']) and ( $_POST['group_id_2'] == $key)) {
+                                $options_sub_group_2[$date['id']] = $date['name'];
+                            }
+
+                            if (isset($_POST['group_id_3']) and ( $_POST['group_id_3'] == $key)) {
+                                $options_sub_group_3[$date['id']] = $date['name'];
+                            }
+
+                            if (isset($_POST['group_id_4']) and ( $_POST['group_id_4'] == $key)) {
+                                $options_sub_group_4[$date['id']] = $date['name'];
+                            }
+
+                            if (isset($_POST['group_id_5']) and ( $_POST['group_id_5'] == $key)) {
+                                $options_sub_group_5[$date['id']] = $date['name'];
+                            }
+                        }
+                    }
+
+                    if (!empty($options_sub_group_1)) {
+                        $options_sub_group_1 = array(0 => "Выберите подкатегорию") + $options_sub_group_1;
+                    }
+
+                    if (!empty($options_sub_group_2)) {
+                        $options_sub_group_2 = array(0 => "Выберите подкатегорию") + $options_sub_group_2;
+                    }
+
+                    if (!empty($options_sub_group_3)) {
+                        $options_sub_group_3 = array(0 => "Выберите подкатегорию") + $options_sub_group_3;
+                    }
+
+                    if (!empty($options_sub_group_4)) {
+                        $options_sub_group_4 = array(0 => "Выберите подкатегорию") + $options_sub_group_4;
+                    }
+                    if (!empty($options_sub_group_5)) {
+                        $options_sub_group_5 = array(0 => "Выберите подкатегорию") + $options_sub_group_5;
+                    }
                 }
 
-                if (isset($_POST['sub_group_id_1'])) {
-                    $options_sub_group_1 = ORM::factory('group')->get_sub_groups_for_group($_POST['group_id_1']);
-                    $options_sub_group_1 = array(0 => "Выберите подкатегорию") + $options_sub_group_1;
-                }
-                if (isset($_POST['sub_group_id_2'])) {
-                    $options_sub_group_2 = ORM::factory('group')->get_sub_groups_for_group($_POST['group_id_2']);
-                    $options_sub_group_2 = array(0 => "Выберите подкатегорию") + $options_sub_group_2;
-                }
-                if (isset($_POST['sub_group_id_3'])) {
-                    $options_sub_group_3 = ORM::factory('group')->get_sub_groups_for_group($_POST['group_id_3']);
-                    $options_sub_group_3 = array(0 => "Выберите подкатегорию") + $options_sub_group_3;
-                }
-                if (isset($_POST['sub_group_id_4'])) {
-                    $options_sub_group_4 = ORM::factory('group')->get_sub_groups_for_group($_POST['group_id_4']);
-                    $options_sub_group_4 = array(0 => "Выберите подкатегорию") + $options_sub_group_4;
-                }
-                if (isset($_POST['sub_group_id_5'])) {
-                    $options_sub_group_5 = ORM::factory('group')->get_sub_groups_for_group($_POST['group_id_5']);
-                    $options_sub_group_5 = array(0 => "Выберите подкатегорию") + $options_sub_group_5;
-                }
-                print_r($errors);
                 $this->errors = $errors;
                 $this->values = $_POST;
                 $group_type = empty($this->values['group']) ? 0 : $this->values['group'];
@@ -249,7 +281,6 @@ class Controller_Cabinet_Company extends Controller_Cabinet {
         } else {
             $group_type = 1;
         }
-
 
         $this->view = View::factory('frontend/cabinet/company/form')
                 ->set('url', 'cabinet/company/add')
@@ -389,7 +420,7 @@ class Controller_Cabinet_Company extends Controller_Cabinet {
     }
 
     public function action_get_sub_groups() {
-        $result['sub_groups'] = ORM::factory('group')->get_sub_groups_for_group($_POST['group_id']);
+        $result['sub_groups'] = ORM::factory('group')->get_sub_groups_for_one_group($_POST['group_id']);
 
         $result['type_group'] = ORM::factory('group')->get_type_group($_POST['group_id']);
 

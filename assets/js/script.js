@@ -1,10 +1,10 @@
 $(function () {
     var data_group_1 = '';
-    
+
     $('#group_id_1').click(function () {
         data_group_1 = $(this).val();
     });
-    
+
     $('.select_group').live("change", function (event) {
         var element = $(this);
         var number_group = element.data('number_group');
@@ -12,6 +12,7 @@ $(function () {
         if (number_group != 1) {
             $('#sub_group_id_' + number_group + ' option').remove();
             $('.div_sub_group_' + number_group).hide();
+            $('.er_sub_group_' + number_group).html('');
 
             add_sub_group(element, number_group);
         } else {
@@ -19,23 +20,30 @@ $(function () {
             if ($('#group_id_1').hasClass('first')) {
                 $('#sub_group_id_' + number_group + ' option').remove();
                 $('.div_sub_group_' + number_group).hide();
+                $('.er_sub_group_' + number_group).html('');
 
                 add_sub_group(element, number_group);
             } else {
                 if (confirm("Изменение данной группы повлечет сброс остальных групп. Изменить?")) {
                     if (element.val() == '0') {
-                        element.removeAttr('data-type_group');
+                        element.removeData('type_group').removeAttr('data-type_group');
                     }
+
+                    $('.add_group').removeAttr('next_group').data('next_group', 2);
 
                     for (var i = 1; i <= 5; i++) {
                         $('#sub_group_id_' + i + ' option').remove();
                         $('.div_sub_group_' + i).hide();
+                        $('.er_sub_group_' + i).html('');
                     }
 
                     for (var i = 2; i <= 5; i++) {
                         $('#group_id_' + i + ' option').remove();
                         $('.div_group_' + i).hide();
+                        $('.er_group_' + i).html('');
                     }
+
+                    element.addClass('first')
 
                     add_sub_group(element, number_group);
                 } else {
@@ -66,10 +74,10 @@ $(function () {
                         str = str + '<option value="' + group_id + '">' + groups[group_id] + '</option>';
                     }
 
-                    $('#group_id_' + number_group).append(str);
-                    $('.div_group_' + number_group).show();
+                    $('#group_id_' + number_group).html('').append(str);
+                    $('.div_group_' + number_group).removeClass('hide_field').show();
 
-                    $('.add_group').data('next_group', (number_group + 1));
+                    $('.add_group').removeAttr('next_group').data('next_group', (number_group + 1));
                     $('#group_id_1').removeClass('first');
                 }, "json");
             }
@@ -80,6 +88,18 @@ $(function () {
         var number_group = $(this).data('number_group');
 
         del_group(number_group);
+
+        var flag = 0;
+
+        for (var i = 2; i <= 5; i++) {
+            if (!$('.div_group_' + i).hasClass('hide_field')) {
+                flag++;
+            }
+        }
+
+        if (flag == 0) {
+            $('#group_id_1').addClass('first');
+        }
     });
 
     $('.st_form #city_name').change(
@@ -117,31 +137,33 @@ function length(array) {
 }
 
 function add_sub_group(element, number_group) {
-    $.post("/cabinet/company/get_sub_groups", {group_id: element.val()}, function (res) {
-        var sub_groups = res.sub_groups;
-        var length_sub_groups = length(sub_groups);
+    if (element.val() != 0) {
+        $.post("/cabinet/company/get_sub_groups", {group_id: element.val()}, function (res) {
+            var sub_groups = res.sub_groups;
+            var length_sub_groups = length(sub_groups);
 
-        if (res.type_group == 1) {
-            $('.auto_models').show();
-            $('.works').hide();
-        } else {
-            $('.works').show();
-            $('.auto_models').hide();
-        }
-
-        element.attr('data-type_group', res.type_group);
-
-        if (length_sub_groups > 0) {
-            var str = '<option value="0">Выберите подкатегорию</option>';
-
-            for (sub_groups_id in sub_groups) {
-                str = str + '<option value="' + sub_groups_id + '">' + sub_groups[sub_groups_id] + '</option>';
+            if (res.type_group == 1) {
+                $('.auto_models').show();
+                $('.works').hide();
+            } else {
+                $('.works').show();
+                $('.auto_models').hide();
             }
 
-            $('#sub_group_id_' + number_group).append(str);
-            $('.div_sub_group_' + number_group).show();
-        }
-    }, "json");
+            element.removeData('type_group').attr('data-type_group', res.type_group);
+
+            if (length_sub_groups > 0) {
+                var str = '<option value="0">Выберите подкатегорию</option>';
+
+                for (sub_groups_id in sub_groups) {
+                    str = str + '<option value="' + sub_groups_id + '">' + sub_groups[sub_groups_id] + '</option>';
+                }
+
+                $('#sub_group_id_' + number_group).append(str);
+                $('.div_sub_group_' + number_group).show();
+            }
+        }, "json");
+    }
 }
 
 function get_metro_and_district(city_name) {
@@ -204,7 +226,7 @@ function del_group(number_group) {
 
         $('#label_group_' + (i + 1)).removeAttr("id").attr('id', 'label_group_' + i);
 
-        var copy_group = $('.div_group_' + i).clone();
+        var copy_group = $('.div_group_' + i).clone().addClass('hide_field');
 
         var selected_group = $('#group_id_' + i).val();
 

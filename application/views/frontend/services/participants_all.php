@@ -3,8 +3,6 @@ defined('SYSPATH') or die('No direct script access.');
 ?>
 <div class="serv_list_column">
    <ul>
-    <?php $mid_array = ceil(count($result)/2); ?>
-
     <?php $i=1; foreach ($result as $group): ?>
         <li class="group">
             <?php if (isset($group['sub_group'])) { ?>
@@ -20,7 +18,7 @@ defined('SYSPATH') or die('No direct script access.');
                 </li>
             <?php endforeach; ?></ul>
         <?php } ?>
-        <?php if($i==$mid_array){ ?>
+        <?php if($i==7){ ?>
         </ul>
             </div>
             <div class="serv_list_column">
