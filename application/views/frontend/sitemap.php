@@ -42,7 +42,7 @@ defined('SYSPATH') or die('No direct script access.');?>
         </ul>
     </li>
     <li>
-        <?= HTML::anchor('shops', 'Магазины автозапчастей'); ?>
+        <?= HTML::anchor('participants', 'УЧАСТНИКИ'); ?>
         <ul>
             <?php foreach ($shops_urls as $url => $title): ?>
                 <li><?= HTML::anchor($url, $title); ?></li>

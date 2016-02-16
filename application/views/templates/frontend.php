@@ -98,7 +98,7 @@ defined('SYSPATH') or die('No direct script access.'); ?>
             </div>
             <div class="menu">
                 <ul>
-                    <li><?= HTML::anchor('shops', 'УЧАСТНИКИ', array('class' => 'menu-auto-filter')); ?></li>
+                    <li><?= HTML::anchor('participants', 'УЧАСТНИКИ', array('class' => 'menu-auto-filter')); ?></li>
                     <li><?= HTML::anchor('#', 'ПРОГРАММЫ', array('class' => 'menu-auto-filter')); ?></li>
                     <li><?= HTML::anchor('#', 'МЕРОПРИЯТИЯ'); ?></li>
                     <li><?= HTML::anchor('#', 'СЕРВИСЫ'); ?></li>
