@@ -2,14 +2,14 @@
 
 defined('SYSPATH') or die('No direct script access.');
 
-class Controller_Shops extends Controller_Frontend {
+class Controller_Participants extends Controller_Frontend {
 
     public $template = 'templates/frontend_news';
 
     public function before() {
         parent::before();
 
-        $this->template->bc['shops'] = 'Магазины автозапчастей';
+        $this->template->bc['participants'] = 'Участники';
 
         // add class for news pages
         $this->template->css_class = 'wrapper-news';
@@ -34,9 +34,9 @@ class Controller_Shops extends Controller_Frontend {
             }
         }
 
-        $this->view = View::factory('frontend/services/shops_all')
+        $this->view = View::factory('frontend/services/participants_all')
                 ->set('result', $result);
-        $this->template->title = 'Только лучшие магазины авто запчастей';
+        $this->template->title = 'Участники Национальной ассоциации автоиндустрии';
         $this->template->content = $this->view;
     }
 

@@ -210,7 +210,7 @@ Route::set('service_search_by_work', 'services/search(/work_<work>)(/city_<city>
 			)
 		);
 
-Route::set('company_info', '<company_type>/<id>', array('company_type' => '(services|shops)'))
+Route::set('company_info', '<company_type>/<id>', array('company_type' => '(services|participants)'))
 		->defaults(
 			array(
 				'directory'  => 'services',
