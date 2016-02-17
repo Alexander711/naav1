@@ -9,14 +9,13 @@ class Model_Group extends ORM {
     protected $_table_columns = array(
         'id' => NULL,
         'name' => NULL,
-        'parrent_id' => NULL
+        'parrent_id' => NULL,
+        'type' => NULL
     );
     protected $_has_many = array(
         'service' => array(
             'model' => 'service',
-            'through' => 'services_groups',
             'foreign_key' => 'group_id',
-            'far_key' => 'service_id',
         )
     );
     public $disable_validation = FALSE;

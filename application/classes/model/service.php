@@ -18,6 +18,7 @@ class Model_Service extends ORM {
         'user_id' => NULL,
         'org_type' => NULL,
         'inn' => NULL,
+        'group_id' => NULL,
         'city_id' => NULL,
         'district_id' => NULL,
         'metro_id' => NULL,
@@ -86,12 +87,6 @@ class Model_Service extends ORM {
             'model' => 'CompanyImage',
             'foreign_key' => 'company_id'
         ),
-        'group' => array(
-            'model' => 'group',
-            'through' => 'services_groups',
-            'foreign_key' => 'service_id',
-            'far_key' => 'group_id',
-        )
     );
     protected $_belongs_to = array(
         'user' => array(
@@ -118,6 +113,10 @@ class Model_Service extends ORM {
             'model' => 'orgtype',
             'foreign_key' => 'org_type'
         ),
+        'group' => array(
+            'model' => 'group',
+            'foreign_key' => 'group_id',
+        )
     );
     public $disable_validation = FALSE;
     private $_search_params = array();

@@ -21,33 +21,29 @@ class Controller_Cabinet_Company extends Controller_Cabinet {
         $company = $this->user->services->find_all();
 
         foreach ($company as $comp) {
-            $groups = $comp->group->find_all();
+            if ($comp->group->parrent_id != 0) {
+                $par_group = ORM::factory('group', $comp->group->parrent_id);
 
-            foreach ($groups as $group) {
-                if ($group->parrent_id != 0) {
-                    $par_group = ORM::factory('group', $group->parrent_id);
-
-                    $result[] = array(
-                        'group_name' => $par_group->name,
-                        'sub_group_name' => $group->name,
-                        'id_service' => $comp->id,
-                        'service_name' => $comp->name,
-                        'count_news' => count($comp->news->find_all()),
-                        'count_stocks' => count($comp->stocks->find_all()),
-                        'count_vacancies' => count($comp->vacancies->find_all()),
-                        'count_reviews' => count($comp->reviews->find_all()),
-                    );
-                } else {
-                    $result[] = array(
-                        'group_name' => $group->name,
-                        'id_service' => $comp->id,
-                        'service_name' => $comp->name,
-                        'count_news' => count($comp->news->find_all()),
-                        'count_stocks' => count($comp->stocks->find_all()),
-                        'count_vacancies' => count($comp->vacancies->find_all()),
-                        'count_reviews' => count($comp->reviews->find_all()),
-                    );
-                }
+                $result[] = array(
+                    'group_name' => $par_group->name,
+                    'sub_group_name' => $comp->group->name,
+                    'id_service' => $comp->id,
+                    'service_name' => $comp->name,
+                    'count_news' => count($comp->news->find_all()),
+                    'count_stocks' => count($comp->stocks->find_all()),
+                    'count_vacancies' => count($comp->vacancies->find_all()),
+                    'count_reviews' => count($comp->reviews->find_all()),
+                );
+            } else {
+                $result[] = array(
+                    'group_name' => $comp->group->name,
+                    'id_service' => $comp->id,
+                    'service_name' => $comp->name,
+                    'count_news' => count($comp->news->find_all()),
+                    'count_stocks' => count($comp->stocks->find_all()),
+                    'count_vacancies' => count($comp->vacancies->find_all()),
+                    'count_reviews' => count($comp->reviews->find_all()),
+                );
             }
         }
 
@@ -72,14 +68,12 @@ class Controller_Cabinet_Company extends Controller_Cabinet {
 
     public function action_add() {
 
-        $city_options = ORM::factory('city')->get_all_cities();
         $work_category = ORM::factory('workcategory');
         $cars = ORM::factory('car_brand')->get_cars_as_array();
         $discounts = ORM::factory('discount')->get_all_as_array();
         $org_types = ORM::factory('orgtype')->get_all_as_array();
         $groups = ORM::factory('group')->get_groups_as_array();
         $options_sub_group = array();
-        $groups_post = array();
         $type = 0;
 
         $groups = array(0 => 'Выберите категорию') + $groups;
@@ -94,11 +88,11 @@ class Controller_Cabinet_Company extends Controller_Cabinet {
                 if (isset($_POST['sub_group_id'])) {
                     $extra_validation->rule('sub_group_id', 'Model_Group::check_valid_group', array(':value'));
 
-                    $groups_post = Arr::get($_POST, 'sub_group_id', NULL);
+                    $group_id = Arr::get($_POST, 'sub_group_id', NULL);
                 } else {
                     $extra_validation->rule('group_id', 'Model_Group::check_valid_group', array(':value'));
 
-                    $groups_post = Arr::get($_POST, 'group_id', NULL);
+                    $group_id = Arr::get($_POST, 'group_id', NULL);
                 }
 
                 $extra_validation->rule('city_name', 'not_empty')
@@ -106,6 +100,7 @@ class Controller_Cabinet_Company extends Controller_Cabinet {
 
                 $company->values($_POST, array('name', 'org_type', 'inn', 'director_name', 'contact_person', 'address', 'phone', 'code', 'fax', 'site', 'about', 'work_times', 'discount_id', 'coupon_text', 'ymap_lng', 'ymap_lat'));
                 $company->user_id = $this->user->id;
+                $company->group_id = $group_id;
                 $company->city_id = ORM::factory('service')->get_id_city(Arr::get($_POST, 'city_name', NULL));
                 $company->metro_id = Arr::get($_POST, 'metro_id', NULL);
                 $company->district_id = Arr::get($_POST, 'district_id', NULL);
@@ -120,29 +115,27 @@ class Controller_Cabinet_Company extends Controller_Cabinet {
                     $company->add('cars', $c);
                 }
 
-                $company->add('group', $groups_post);
-
                 $works_input = Arr::get($_POST, 'work', array());
                 foreach ($works_input as $w) {
                     $company->add('works', $w);
                 }
-                
-                /*if ($company->type == 1)
-                {
-                    $works_input = Arr::get($_POST, 'work', array());
-                    foreach ($works_input as $w)
-                    {
-                        $company->add('works', $w);
-                    }
-                    $notice_type = 'service_create';
-                }
-                else
-                {
-                    $notice_type = 'shop_create';
-                }
 
-                $notice = ORM::factory('notice')->where('type', '=', $notice_type)->find();
-                DB::insert('notices_services', array('service_id', 'notice_id', 'date'))->values(array($company->id, $notice->id, Date::formatted_time()))->execute();*/
+                /* if ($company->type == 1)
+                  {
+                  $works_input = Arr::get($_POST, 'work', array());
+                  foreach ($works_input as $w)
+                  {
+                  $company->add('works', $w);
+                  }
+                  $notice_type = 'service_create';
+                  }
+                  else
+                  {
+                  $notice_type = 'shop_create';
+                  }
+
+                  $notice = ORM::factory('notice')->where('type', '=', $notice_type)->find();
+                  DB::insert('notices_services', array('service_id', 'notice_id', 'date'))->values(array($company->id, $notice->id, Date::formatted_time()))->execute(); */
                 Logger::write(Logger::ADD, 'Пользователь добавил компанию ' . $company->name, $this->user);
                 Message::set(Message::SUCCESS, 'Фирма успешно добавлена! ' . HTML::anchor('cabinet/company/gallery/' . $company->id, 'Загрузить изображения для галерии'));
                 $this->request->redirect('cabinet/company');
@@ -163,10 +156,10 @@ class Controller_Cabinet_Company extends Controller_Cabinet {
                     if (!empty($options_sub_group)) {
                         $options_sub_group = array(0 => "Выберите подкатегорию") + $options_sub_group;
                     }
-                    
+
                     $type = ORM::factory('group')->get_type_group(Arr::get($_POST, 'group_id', NULL));
                 }
-                
+
                 $this->errors = $errors;
                 $this->values = $_POST;
                 $group_type = empty($this->values['group']) ? 0 : $this->values['group'];
@@ -181,7 +174,6 @@ class Controller_Cabinet_Company extends Controller_Cabinet {
                 ->set('city', ORM::factory('city'))
                 ->set('work_category', $work_category)
                 ->set('auto_models', $cars)
-                ->set('cities', $city_options)
                 ->set('discounts', $discounts)
                 ->set('options_sub_group', $options_sub_group)
                 ->set('values', $this->values)
@@ -201,45 +193,102 @@ class Controller_Cabinet_Company extends Controller_Cabinet {
         }
 
         $this->values = $company->as_array();
-
-        $city = ORM::factory('city');
-        foreach ($city->find_all() as $c) {
-            $city_options[$c->id] = $c->name;
-        }
         $work_category = ORM::factory('workcategory');
         $cars = ORM::factory('car_brand')->get_cars_as_array();
         $discounts = ORM::factory('discount')->get_all_as_array();
         $org_types = ORM::factory('orgtype')->get_all_as_array();
+        $groups = ORM::factory('group')->get_groups_as_array();
+        $groups = array(0 => 'Выберите категорию') + $groups;
+        $options_sub_group = array();
+        $type = 0;
+
         if ($_POST) {
             try {
-                $company->values($_POST, array('name', 'org_type', 'inn', 'director_name', 'contact_person', 'address', 'phone', 'type', 'code', 'fax', 'site', 'about', 'work_times', 'discount_id', 'coupon_text', 'ymap_lat', 'ymap_lng'));
+                $extra_validation = Validation::factory($_POST);
+
+                if (isset($_POST['sub_group_id'])) {
+                    $extra_validation->rule('sub_group_id', 'Model_Group::check_valid_group', array(':value'));
+
+                    $group_id = Arr::get($_POST, 'sub_group_id', NULL);
+                } else {
+                    $extra_validation->rule('group_id', 'Model_Group::check_valid_group', array(':value'));
+
+                    $group_id = Arr::get($_POST, 'group_id', NULL);
+                }
+
+                $extra_validation->rule('city_name', 'not_empty')
+                        ->rule('city_name', 'Model_Service::check_valid_city', array(':value'));
+
+                $company->values($_POST, array('name', 'org_type', 'inn', 'director_name', 'contact_person', 'address', 'phone', 'code', 'fax', 'site', 'about', 'work_times', 'discount_id', 'coupon_text', 'ymap_lng', 'ymap_lat'));
                 $company->user_id = $this->user->id;
-                $company->city_id = Arr::get($_POST, 'city_id', NULL);
+                $company->group_id = $group_id;
+                $company->city_id = ORM::factory('service')->get_id_city(Arr::get($_POST, 'city_name', NULL));
                 $company->metro_id = Arr::get($_POST, 'metro_id', NULL);
                 $company->district_id = Arr::get($_POST, 'district_id', NULL);
-                $company->date_edited = DATE::formatted_time();
-                $company->update();
-                $company->remove('cars');
-                $company->remove('works');
+                $company->active = 1;
+                $company->date_create = DATE::formatted_time();
+                $company->date_edited = Date::formatted_time();
+
+                $company->save($extra_validation);
+
                 $cars_input = Arr::get($_POST, 'model', array());
                 foreach ($cars_input as $c) {
                     $company->add('cars', $c);
                 }
-                if ($company->type == 1) {
-                    $works_input = Arr::get($_POST, 'work', array());
-                    foreach ($works_input as $w) {
-                        $company->add('works', $w);
-                    }
+
+                $works_input = Arr::get($_POST, 'work', array());
+                foreach ($works_input as $w) {
+                    $company->add('works', $w);
                 }
+
                 Logger::write(Logger::EDIT, 'Пользователь отредактировал данные компании ' . $company->name, $this->user);
                 Message::set(Message::SUCCESS, 'Фирма успешно отредактирована!');
                 $this->request->redirect('cabinet/company');
             } catch (ORM_Validation_Exception $e) {
-                $this->errors = $e->errors('models');
+                $errors = $e->errors('models');
+
+                if (isset($errors['_external'])) {
+                    foreach ($errors['_external'] as $key => $value) {
+                        $errors[$key] = $value;
+                    }
+                    unset($errors['_external']);
+                }
+
+                if ($_POST['group_id'] != 0) {
+
+                    $options_sub_group = ORM::factory('group')->get_sub_groups_for_one_group(Arr::get($_POST, 'group_id', NULL));
+
+                    if (!empty($options_sub_group)) {
+                        $options_sub_group = array(0 => "Выберите подкатегорию") + $options_sub_group;
+                    }
+
+                    $type = ORM::factory('group')->get_type_group(Arr::get($_POST, 'group_id', NULL));
+                }
+
+                $this->errors = $errors;
                 $this->values = $_POST;
-                $type = $this->values['type'];
+                $group_type = empty($this->values['group']) ? 0 : $this->values['group'];
             }
         } else {
+            $this->values['city_name'] = $company->city->name;
+
+            if ($company->group->parrent_id != 0) {
+                $this->values['sub_group_id'] = $company->group->id;
+
+                $par_group = ORM::factory('group', $company->group->parrent_id);
+                $this->values['group_id'] = $par_group->id;
+
+                $options_sub_group = ORM::factory('group')->get_sub_groups_for_one_group($par_group->id);
+
+                if (!empty($options_sub_group)) {
+                    $options_sub_group = array(0 => "Выберите подкатегорию") + $options_sub_group;
+                }
+            } else {
+                $this->values['group_id'] = $company->group->id;
+            }
+
+            $type = ORM::factory('group')->get_type_group($this->values['group_id']);
+
             foreach ($company->works->find_all() as $w) {
                 $this->values['work'][$w->id] = $w->id;
             }
@@ -247,27 +296,25 @@ class Controller_Cabinet_Company extends Controller_Cabinet {
 
                 $this->values['model'][] = $c->id;
             }
-            $type = $company->type;
         }
-
-
 
         $this->view = View::factory('frontend/cabinet/company/form')
                 ->set('company', $company)
                 ->set('url', 'cabinet/company/edit/' . $company->id)
+                ->set('groups', $groups)
                 ->set('type', $type)
-                ->set('company_types', $this->settings['company_types'])
+                ->set('options_sub_group', $options_sub_group)
                 ->set('org_types', $org_types)
-                ->set('city', $city)
                 ->set('work_category', $work_category)
                 ->set('auto_models', $cars)
-                ->set('cities', $city_options)
+                ->set('city', ORM::factory('city'))
                 ->set('discounts', $discounts)
                 ->set('values', $this->values)
                 ->set('errors', $this->errors);
         $this->add_js('http://api-maps.yandex.ru/1.1/index.xml?key=' . $this->settings['YMaps_key'] . '&onerror=map_alert');
         $this->template->title = 'Редактирование компании';
         $this->template->bc['#'] = 'Редактирование компании';
+        $this->add_js('assets/js/script.js');
         $this->template->content = $this->view;
     }
 
